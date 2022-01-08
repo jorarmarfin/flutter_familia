@@ -5,12 +5,22 @@ const mPrimaryColor = Colors.purple;
 const mSecondaryColor = Color(0xff0c9869);
 const mTextColor = Colors.black;
 const mBackgroundColor = Color(0xfff9f8fd);
-const mColorTest = Colors.purple;
+const mColorTest = Colors.blue;
 const mColorBlanco = Colors.white;
 const mColorNegro = Colors.black;
 final mColorSombra = Colors.black.withOpacity(0.2);
 
+const mColorLucy1 = Color(0xffba68c8);
+const mColorLuis1 = Color(0xffbbdefb);
+const mColorLuis2 = Colors.blue;
+const mColorFran1 = Color(0xffffa726);
+const mColorFran2 = Color(0xfffb8c00);
+
 const double kDefaultPadding = 20.0;
+
+const fotoLucy = 'assets/images/lucy.png';
+const fotoLuis = 'assets/images/luis.png';
+const fotoFrancisco = 'assets/images/francisco.png';
 
 class MyTheme {
   static ThemeData get base {
@@ -36,9 +46,9 @@ class MyTheme {
   }
 }
 
-BoxDecoration estiloBoton() {
+BoxDecoration estiloBoton(color1, color2) {
   return BoxDecoration(
-      gradient: LinearGradient(colors: [Colors.purple.shade200, mPrimaryColor]),
+      gradient: LinearGradient(colors: [color1, color2]),
       borderRadius: BorderRadius.circular(20),
       boxShadow: [
         BoxShadow(
