@@ -3,8 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 
 const mPrimaryColor = Colors.purple;
 const mSecondaryColor = Color(0xff0c9869);
-const kTextColor = Color(0xff3c4046);
-const kBackgroundColor = Color(0xfff9f8fd);
+const mTextColor = Colors.black;
+const mBackgroundColor = Color(0xfff9f8fd);
+const mColorTest = Colors.purple;
+const mColorBlanco = Colors.white;
+const mColorNegro = Colors.black;
+final mColorSombra = Colors.black.withOpacity(0.2);
 
 const double kDefaultPadding = 20.0;
 
@@ -12,19 +16,36 @@ class MyTheme {
   static ThemeData get base {
     return ThemeData(
         primaryColor: mPrimaryColor,
-        colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: mPrimaryColor,
-          secondary: mSecondaryColor,
-        ), //Color de AppBar
+        //Esquema de colores para el appBar
+        appBarTheme: const AppBarTheme(
+          backgroundColor: mPrimaryColor,
+          foregroundColor: Colors.white, //here you can give the text color
+          // elevation: 0 // si hay o no sombra
+        ),
         textTheme: TextTheme(
             headline1: GoogleFonts.getFont('Dancing Script',
                 fontSize: 20, fontWeight: FontWeight.normal),
             headline2:
                 GoogleFonts.nunito(fontWeight: FontWeight.bold, fontSize: 20),
+            headline3: GoogleFonts.nunito(fontSize: 20, color: mColorBlanco),
             bodyText1:
                 const TextStyle(color: Colors.black), //para enfatizar texto
             bodyText2: const TextStyle(
-                color: mPrimaryColor, fontSize: 20) //para texto del body
+                color: mTextColor, fontSize: 20) //para texto del body
             ));
   }
+}
+
+BoxDecoration estiloBoton() {
+  return BoxDecoration(
+      gradient: LinearGradient(colors: [Colors.purple.shade200, mPrimaryColor]),
+      borderRadius: BorderRadius.circular(20),
+      boxShadow: [
+        BoxShadow(
+            color: mColorSombra, offset: const Offset(4, 6), blurRadius: 10)
+      ]);
+}
+
+BoxDecoration estiloCircular() {
+  return const BoxDecoration(shape: BoxShape.circle, color: Colors.white);
 }
