@@ -5,9 +5,12 @@ class DetalleMiembroScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Hola Mundo'),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Detalle de miembro'),
+      ),
+      body: const Center(
+        child: Text('DEtalle de miembro'),
       ),
     );
   }
