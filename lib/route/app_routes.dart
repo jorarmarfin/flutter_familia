@@ -8,4 +8,9 @@ class AppRoutes {
     'home': (BuildContext context) => const HomeScreen(),
     'detalle_miembro': (BuildContext context) => const DetalleMiembroScreen()
   };
+  static Route<dynamic> onGenerateRoute (RouteSettings settings) {
+        return MaterialPageRoute(
+          builder: (context) => const HomeScreen(),
+        );
+      }
 }

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_familia/components/boton_principal.dart';
-import 'package:flutter_familia/screens/screens.dart';
 import 'package:flutter_familia/theme/mytheme.dart';
-
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -20,10 +18,7 @@ class HomeScreen extends StatelessWidget {
             color1: mColorLuis1,
             color2: mColorLuis2,
             onPress: () {
-              final route = MaterialPageRoute(
-                builder: (context) => const DetalleMiembroScreen(),
-              );
-              Navigator.push(context, route);
+              Navigator.pushNamed(context, 'detalle_miembro');
             },
           ),
           BotonPrincipal(
