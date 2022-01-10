@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart' show IconData, Widget;
+import 'package:flutter/material.dart' show Widget;
 
 class MenuModels {
   final String route;
-  final IconData icon;
   final String name;
   final Widget screen;
 
-  MenuModels(this.route, this.icon, this.name, this.screen);
+  MenuModels(this.route, this.name, this.screen);
 }
