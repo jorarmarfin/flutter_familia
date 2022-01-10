@@ -40,14 +40,12 @@ class BotonPrincipal extends StatelessWidget {
             ),
             Row(
               children: [
-                Container(
-                  margin: const EdgeInsets.all(10.0),
-                  width: 90,
-                  height: 90,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                          fit: BoxFit.fill, image: AssetImage(foto))),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircleAvatar(
+                    maxRadius: 50,
+                    backgroundImage: AssetImage(foto),
+                  ),
                 ),
                 Expanded(
                   child: Column(

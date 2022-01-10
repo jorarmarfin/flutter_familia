@@ -23,8 +23,7 @@ const fotoLuis = 'assets/images/luis.png';
 const fotoFrancisco = 'assets/images/francisco.png';
 
 class MyTheme {
-  static ThemeData get base {
-    return ThemeData(
+  static ThemeData base =ThemeData.light().copyWith(
         primaryColor: mPrimaryColor,
         //Esquema de colores para el appBar
         appBarTheme: const AppBarTheme(
@@ -42,9 +41,10 @@ class MyTheme {
                 const TextStyle(color: Colors.black), //para enfatizar texto
             bodyText2: const TextStyle(
                 color: mTextColor, fontSize: 20) //para texto del body
-            ));
-  }
+            )
+    );
 }
+
 
 BoxDecoration estiloBoton(color1, color2) {
   return BoxDecoration(
