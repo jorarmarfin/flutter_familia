@@ -16,7 +16,8 @@ class MyApp extends StatelessWidget {
       theme: MyTheme.base,
       initialRoute: AppRoutes.initialRoute,
       routes: AppRoutes.routes,
-      onGenerateRoute:(settings)=> AppRoutes.onGenerateRoute(settings)
+      onGenerateRoute:AppRoutes.onGenerateRoute
+      //Cuando es la misma variable que envias a la que recibes, se pude moitir y enviar por referencia
     );
   }
 }
