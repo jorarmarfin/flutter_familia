@@ -6,8 +6,8 @@ class AppRoutes {
   static const initialRoute = 'home';
 
   static final menuOptions = <MenuModels>[
-
-    MenuModels('detalle_miembro','Detalle de miembro',const DetalleMiembroScreen()),
+    MenuModels(
+        'detalle_miembro', 'Detalle de miembro', const DetalleMiembroScreen()),
   ];
 
   static Map<String, Widget Function(BuildContext)> routes = {

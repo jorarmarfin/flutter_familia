@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_familia/components/boton_principal.dart';
+import 'package:flutter_familia/models/miembro_model.dart';
 import 'package:flutter_familia/theme/mytheme.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -18,13 +19,13 @@ class HomeScreen extends StatelessWidget {
             color1: mColorLuis1,
             color2: mColorLuis2,
             onPress: () {
-              Navigator.pushNamed(context, 'detalle_miembro');
+              Navigator.pushNamed(context, 'detalle_miembro', arguments: MiembroModel('Luis','41') );
             },
           ),
           BotonPrincipal(
               foto: fotoLucy,
               nombre: 'Lucy Marisol Sanchez Torres',
-              dni: '41253675',
+              dni: '41253675-0',
               color1: mColorLucy1,
               color2: mPrimaryColor,
               onPress: () {
