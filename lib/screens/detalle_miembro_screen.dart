@@ -38,23 +38,23 @@ class DetalleMiembroScreen extends StatelessWidget {
                 mylabel: 'DNI',
                 myvalor: miembro.dni,
               ),
-              _Datos(
+              const _Datos(
                 mylabel: 'Peso nacimiento',
                 myvalor: '51',
               ),
-              _Datos(
+              const _Datos(
                 mylabel: 'Altura nacimiento',
                 myvalor: '51',
               ),
-              _Datos(
+              const _Datos(
                 mylabel: 'Fecha nacimiento',
                 myvalor: '51',
               ),
-              _Datos(
+              const _Datos(
                 mylabel: 'Tipo de Sangre',
                 myvalor: '51',
               ),
-              Card(
+              const Card(
                 child: ListTile(
                   title: Text('Vacuna contra el covid'),
                   textColor: mColorNegro,

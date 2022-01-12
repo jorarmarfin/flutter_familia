@@ -1,9 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_familia/providers/providers.dart';
 import 'package:flutter_familia/route/app_routes.dart';
 import 'package:flutter_familia/theme/mytheme.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const AppState());
+}
+
+class AppState extends StatelessWidget {
+  const AppState({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(lazy: false, create: (_) => DrupalProvider())
+      ],
+      child: const MyApp(),
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -13,11 +29,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: MyTheme.base,
-      initialRoute: AppRoutes.initialRoute,
-      routes: AppRoutes.routes,
-      onGenerateRoute:AppRoutes.onGenerateRoute
-      //Cuando es la misma variable que envias a la que recibes, se pude moitir y enviar por referencia
-    );
+        theme: MyTheme.base,
+        initialRoute: AppRoutes.initialRoute,
+        routes: AppRoutes.routes,
+        onGenerateRoute: AppRoutes.onGenerateRoute
+        //Cuando es la misma variable que envias a la que recibes, se pude moitir y enviar por referencia
+        );
   }
 }

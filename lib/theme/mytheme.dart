@@ -19,7 +19,7 @@ const mColorFran2 = Color(0xfffb8c00);
 
 const double kDefaultPadding = 20.0;
 
-const img_loading = 'assets/images/loading.gif';
+const imgLoading = 'assets/images/loading.gif';
 const fotoLucy = 'assets/images/lucy.png';
 const fotoLuis = 'assets/images/luis.png';
 const fotoFrancisco = 'assets/images/francisco.png';
