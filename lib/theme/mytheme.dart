@@ -8,6 +8,7 @@ const mBackgroundColor = Color(0xfff9f8fd);
 const mColorTest = Colors.blue;
 const mColorBlanco = Colors.white;
 const mColorNegro = Colors.black;
+const mColorFondo = Color(0xffd6d6d6);
 final mColorSombra = Colors.black.withOpacity(0.2);
 
 const mColorLucy1 = Color(0xffba68c8);
