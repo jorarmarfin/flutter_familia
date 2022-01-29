@@ -40,11 +40,13 @@ class BotonPrincipal extends StatelessWidget {
             ),
             Row(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CircleAvatar(
-                    maxRadius: 50,
-                    backgroundImage: AssetImage(foto),
+                Hero(tag: 'dni-'+ dni,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CircleAvatar(
+                      maxRadius: 50,
+                      backgroundImage: AssetImage(foto),
+                    ),
                   ),
                 ),
                 Expanded(

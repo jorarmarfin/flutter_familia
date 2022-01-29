@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+//Colores
 const mPrimaryColor = Colors.purple;
 const mSecondaryColor = Color(0xff0c9869);
 const mTextColor = Colors.black;
@@ -11,18 +12,21 @@ const mColorNegro = Colors.black;
 const mColorFondo = Color(0xffd6d6d6);
 final mColorSombra = Colors.black.withOpacity(0.2);
 
-const mColorLucy1 = Color(0xffba68c8);
 const mColorLuis1 = Color(0xffbbdefb);
 const mColorLuis2 = Colors.blue;
+const mColorLucy1 = Color(0xffba68c8);
+const mColorLucy2 = Colors.purple;
 const mColorFran1 = Color(0xffffa726);
 const mColorFran2 = Color(0xfffb8c00);
 
-const double kDefaultPadding = 20.0;
-
+//Imagenes
 const imgLoading = 'assets/images/loading.gif';
 const fotoLucy = 'assets/images/lucy.png';
 const fotoLuis = 'assets/images/luis.png';
 const fotoFrancisco = 'assets/images/francisco.png';
+const fondoLucy = 'assets/images/f-lucy.png';
+const fondoLuis = 'assets/images/f-luis.png';
+const fondoFrancisco = 'assets/images/f-francisco.png';
 
 class MyTheme {
   static ThemeData base =ThemeData.light().copyWith(

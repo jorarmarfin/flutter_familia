@@ -1,66 +1,78 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_familia/models/miembro_model.dart';
+import 'package:flutter_familia/models/models.dart';
+// import 'package:flutter_familia/providers/providers.dart';
+
 import 'package:flutter_familia/theme/mytheme.dart';
+// import 'package:provider/provider.dart';
 
 class DetalleMiembroScreen extends StatelessWidget {
   const DetalleMiembroScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final MiembroModel miembro =
-        ModalRoute.of(context)?.settings.arguments as MiembroModel;
+    final MiembroIdModels miembroId =
+        ModalRoute.of(context)?.settings.arguments as MiembroIdModels;
+    Color myColor = mPrimaryColor;
+    // final drupalProvider = Provider.of<DrupalProvider>(context);
+    // MiembroModels miembro;
+
+    // drupalProvider.getMiembro().then((data) {
+    //   nombreMiembro = data.nombre;
+    // });
+
+    switch (miembroId.nid) {
+      case '1':
+        {
+          myColor = mColorLuis2;
+        }
+        break;
+
+      case '2':
+        {
+          myColor = mColorLucy2;
+        }
+        break;
+      case '3':
+        {
+          myColor = mColorFran2;
+        }
+        break;
+    }
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Detalles'),
-        backgroundColor: mColorLuis2,
+        backgroundColor: myColor,
         centerTitle: true,
         elevation: 0,
       ),
       body: Stack(
         children: [
-          Container(
-            color: mColorFondo,
+          Image(
+            image: AssetImage(miembroId.fondo),
+            fit: BoxFit.cover,
+            width: double.infinity,
+          ),
+          SizedBox(
             height: double.infinity,
+            width: double.infinity,
+            child: CustomPaint(
+              painter: _HeaderPainter(myColor),
+            ),
           ),
-          Container(
-            color: mColorLuis2,
-            height: 150,
-          ),
-          ListView(
-            padding: const EdgeInsets.all(10),
-            children: [
-              _Datos(
-                mylabel: 'Nombre completo',
-                myvalor: miembro.nombre,
+          Hero(
+            tag: 'dni-41887192',
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: Row(
+                children: const[
+                  Expanded(child: Text('miembro.nombre')),
+                  CircleAvatar(
+                    maxRadius: 70,
+                    backgroundImage: AssetImage(fotoLuis),
+                  ),
+                ],
               ),
-              _Datos(
-                mylabel: 'DNI',
-                myvalor: miembro.dni,
-              ),
-              const _Datos(
-                mylabel: 'Peso nacimiento',
-                myvalor: '51',
-              ),
-              const _Datos(
-                mylabel: 'Altura nacimiento',
-                myvalor: '51',
-              ),
-              const _Datos(
-                mylabel: 'Fecha nacimiento',
-                myvalor: '51',
-              ),
-              const _Datos(
-                mylabel: 'Tipo de Sangre',
-                myvalor: '51',
-              ),
-              const Card(
-                child: ListTile(
-                  title: Text('Vacuna contra el covid'),
-                  textColor: mColorNegro,
-                ),
-              ),
-            ],
+            ),
           )
         ],
       ),
@@ -68,22 +80,29 @@ class DetalleMiembroScreen extends StatelessWidget {
   }
 }
 
-class _Datos extends StatelessWidget {
-  final String mylabel;
-  final String myvalor;
-  const _Datos({
-    Key? key,
-    required this.mylabel,
-    required this.myvalor,
-  }) : super(key: key);
+class _HeaderPainter extends CustomPainter {
+  // ignore: prefer_typing_uninitialized_variables
+  final _color;
+
+  _HeaderPainter(this._color);
 
   @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        title: Text(mylabel + ' : ' + myvalor),
-        textColor: mColorNegro,
-      ),
-    );
+  void paint(Canvas canvas, Size size) {
+    final pencil = Paint();
+    pencil.color = _color;
+    pencil.style = PaintingStyle.fill;
+    pencil.strokeWidth = 5;
+
+    final path = Path();
+    path.lineTo(0, size.height * 0.20);
+    path.lineTo(size.width * 0.7, size.height * 0.35);
+    path.lineTo(size.width, size.height * 0.20);
+    path.lineTo(size.width, 0);
+    canvas.drawPath(path, pencil);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
   }
 }

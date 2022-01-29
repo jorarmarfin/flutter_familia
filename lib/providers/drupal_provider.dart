@@ -3,23 +3,30 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class DrupalProvider extends ChangeNotifier {
-  // final String _baseUrl = 'familia.sahost.org';
-  final String _apiToken = 'Basic dXNlcl9yZXN0OkFqSG9sOFR3YWM=';
+import 'package:flutter_familia/models/models.dart';
 
-  DrupalProvider() {
-    print('DrupalProvider');
-    getMiembro();
+class DrupalProvider extends ChangeNotifier {
+  final String _baseUrl = 'https://familia.sahost.org';
+  final String _apiToken = 'Basic dXNlcl9yZXN0OkFqSG9sOFR3YWM=';
+  int _nid = 1;
+ MiembroModels miembroCurrent = {} as MiembroModels;
+
+  DrupalProvider();
+  int get nid => _nid;
+  set nid(int value) {
+    _nid = value;
+    getMiembro(value);
+    notifyListeners();
   }
-  getMiembro() async {
-    var url =
-        Uri.parse('https://familia.sahost.org/api/miembro/1?_format=json');
+
+  getMiembro(int nid) async {
+    var url = Uri.parse('$_baseUrl/api/miembro/$nid?_format=json');
     final response = await http.get(url, headers: {
       'Authorization': _apiToken,
     });
-    final data = jsonDecode(response.body);
-    final json = data[0];
-    print('Response status: ${response.statusCode}');
-    print('Response body2: ${data[0]['nombre']}');
+    final json = jsonDecode(response.body)[0];
+    final str = jsonEncode(json);
+    miembroCurrent = MiembroModels.fromJson(str);
+    notifyListeners();
   }
 }
