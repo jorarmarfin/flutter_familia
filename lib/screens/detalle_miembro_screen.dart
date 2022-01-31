@@ -1,43 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_familia/models/models.dart';
-// import 'package:flutter_familia/providers/providers.dart';
+// import 'package:flutter_familia/models/models.dart';
+import 'package:flutter_familia/providers/providers.dart';
 
 import 'package:flutter_familia/theme/mytheme.dart';
-// import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
 
-class DetalleMiembroScreen extends StatelessWidget {
+class DetalleMiembroScreen extends StatefulWidget {
   const DetalleMiembroScreen({Key? key}) : super(key: key);
 
   @override
+  State<DetalleMiembroScreen> createState() => _DetalleMiembroScreenState();
+}
+
+class _DetalleMiembroScreenState extends State<DetalleMiembroScreen> {
+  @override
   Widget build(BuildContext context) {
-    final MiembroIdModels miembroId =
-        ModalRoute.of(context)?.settings.arguments as MiembroIdModels;
+    // final MiembroIdModels miembroId =
+    //     ModalRoute.of(context)?.settings.arguments as MiembroIdModels;
     Color myColor = mPrimaryColor;
-    // final drupalProvider = Provider.of<DrupalProvider>(context);
+    final drupalProvider = Provider.of<DrupalProvider>(context);
+    print(drupalProvider.miembroCurrent.nombre);
     // MiembroModels miembro;
 
     // drupalProvider.getMiembro().then((data) {
     //   nombreMiembro = data.nombre;
     // });
 
-    switch (miembroId.nid) {
-      case '1':
-        {
-          myColor = mColorLuis2;
-        }
-        break;
+    // switch (miembroId.nid) {
+    //   case '1':
+    //     {
+    //       myColor = mColorLuis2;
+    //     }
+    //     break;
 
-      case '2':
-        {
-          myColor = mColorLucy2;
-        }
-        break;
-      case '3':
-        {
-          myColor = mColorFran2;
-        }
-        break;
-    }
+    //   case '2':
+    //     {
+    //       myColor = mColorLucy2;
+    //     }
+    //     break;
+    //   case '3':
+    //     {
+    //       myColor = mColorFran2;
+    //     }
+    //     break;
+    // }
 
     return Scaffold(
       appBar: AppBar(
@@ -47,11 +53,11 @@ class DetalleMiembroScreen extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          Image(
-            image: AssetImage(miembroId.fondo),
-            fit: BoxFit.cover,
-            width: double.infinity,
-          ),
+          // Image(
+          //   image: AssetImage(miembroId.fondo),
+          //   fit: BoxFit.cover,
+          //   width: double.infinity,
+          // ),
           SizedBox(
             height: double.infinity,
             width: double.infinity,
@@ -64,8 +70,8 @@ class DetalleMiembroScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Row(
-                children: const[
-                  Expanded(child: Text('miembro.nombre')),
+                children: [
+                  Expanded(child: Text(drupalProvider.miembroCurrent.nombre)),
                   CircleAvatar(
                     maxRadius: 70,
                     backgroundImage: AssetImage(fotoLuis),

@@ -9,9 +9,10 @@ class DrupalProvider extends ChangeNotifier {
   final String _baseUrl = 'https://familia.sahost.org';
   final String _apiToken = 'Basic dXNlcl9yZXN0OkFqSG9sOFR3YWM=';
   int _nid = 1;
- MiembroModels miembroCurrent = {} as MiembroModels;
-
+  MiembroModels miembroCurrent =
+      MiembroModels(nid: '', nombre: '', documento: '');
   DrupalProvider();
+
   int get nid => _nid;
   set nid(int value) {
     _nid = value;
