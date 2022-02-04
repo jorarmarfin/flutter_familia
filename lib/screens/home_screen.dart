@@ -4,8 +4,6 @@ import 'package:flutter_familia/data/my_data.dart';
 import 'package:flutter_familia/providers/providers.dart';
 import 'package:provider/provider.dart';
 
-// import 'package:flutter_familia/models/models.dart';
-
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
   final myData = dataLocal;
@@ -26,11 +24,9 @@ class HomeScreen extends StatelessWidget {
                 onPress: () {
                   final drupalProvider =
                       Provider.of<DrupalProvider>(context, listen: false);
-                  drupalProvider.nid = index + 1;
+                  drupalProvider.nid = int.parse(myData[index]['nid']);
+                  drupalProvider.indice = index;
                   Navigator.pushNamed(context, 'detalle_miembro');
-                  // Navigator.pushNamed(context, 'detalle_miembro',
-                  //     arguments:
-                  //         MiembroIdModels(myData[0]['nid'], myData[0]['fondo']));
                 },
               ),
             ],

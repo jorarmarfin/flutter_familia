@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_familia/models/models.dart';
+import 'package:flutter_familia/data/my_data.dart';
 import 'package:flutter_familia/providers/providers.dart';
-
 import 'package:flutter_familia/theme/mytheme.dart';
+
 import 'package:provider/provider.dart';
+
+const myData = dataLocal;
+late int myNid;
+late int myIndice;
 
 class DetalleMiembroScreen extends StatefulWidget {
   const DetalleMiembroScreen({Key? key}) : super(key: key);
@@ -15,73 +19,194 @@ class DetalleMiembroScreen extends StatefulWidget {
 class _DetalleMiembroScreenState extends State<DetalleMiembroScreen> {
   @override
   Widget build(BuildContext context) {
-    // final MiembroIdModels miembroId =
-    //     ModalRoute.of(context)?.settings.arguments as MiembroIdModels;
-    Color myColor = mPrimaryColor;
     final drupalProvider = Provider.of<DrupalProvider>(context);
-    print(drupalProvider.miembroCurrent.nombre);
-    // MiembroModels miembro;
-
-    // drupalProvider.getMiembro().then((data) {
-    //   nombreMiembro = data.nombre;
-    // });
-
-    // switch (miembroId.nid) {
-    //   case '1':
-    //     {
-    //       myColor = mColorLuis2;
-    //     }
-    //     break;
-
-    //   case '2':
-    //     {
-    //       myColor = mColorLucy2;
-    //     }
-    //     break;
-    //   case '3':
-    //     {
-    //       myColor = mColorFran2;
-    //     }
-    //     break;
-    // }
-
+    myNid = drupalProvider.nid;
+    myIndice = drupalProvider.indice;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: myColor,
+        backgroundColor: myData[myIndice]['color2'],
         centerTitle: true,
         elevation: 0,
       ),
-      body: Stack(
-        children: [
-          // Image(
-          //   image: AssetImage(miembroId.fondo),
-          //   fit: BoxFit.cover,
-          //   width: double.infinity,
-          // ),
-          SizedBox(
-            height: double.infinity,
-            width: double.infinity,
-            child: CustomPaint(
-              painter: _HeaderPainter(myColor),
-            ),
-          ),
-          Hero(
-            tag: 'dni-41887192',
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Row(
-                children: [
-                  Expanded(child: Text(drupalProvider.miembroCurrent.nombre)),
-                  CircleAvatar(
-                    maxRadius: 70,
-                    backgroundImage: AssetImage(fotoLuis),
-                  ),
-                ],
+      body: FutureBuilder(
+          future: drupalProvider.getMiembro(myNid),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else {
+              return _DetalleMiembro(
+                myColor: myData[myIndice]['color2'],
+                myFondo: myData[myIndice]['fondo'],
+                myFoto: myData[myIndice]['foto'],
+                myNombre: drupalProvider.miembroCurrent.nombre,
+                myDocumento: 'DNI: ' + drupalProvider.miembroCurrent.documento,
+                myFechaNacimiento:
+                    'Fecha nacimiento: ${drupalProvider.miembroCurrent.fechaNacimiento}',
+              );
+            }
+          }),
+    );
+  }
+}
+
+class _DetalleMiembro extends StatelessWidget {
+  final MaterialColor myColor;
+  final String myFondo;
+  final String myFoto;
+  final String myNombre;
+  final String myDocumento;
+  final String myFechaNacimiento;
+
+  const _DetalleMiembro({
+    Key? key,
+    required this.myColor,
+    required this.myFondo,
+    required this.myFoto,
+    required this.myNombre,
+    required this.myDocumento,
+    required this.myFechaNacimiento,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        _FondoScreen(myFondo: myFondo),
+        _TrianguloHeader(myColor: myColor),
+        _Contenido(
+            myNombre: myNombre,
+            myDocumento: myDocumento,
+            myFoto: myFoto,
+            myFechaNacimiento: myFechaNacimiento),
+      ],
+    );
+  }
+}
+
+class _Contenido extends StatelessWidget {
+  const _Contenido({
+    Key? key,
+    required this.myNombre,
+    required this.myDocumento,
+    required this.myFoto,
+    required this.myFechaNacimiento,
+  }) : super(key: key);
+
+  final String myNombre;
+  final String myDocumento;
+  final String myFoto;
+  final String myFechaNacimiento;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Row(
+            children: [
+              Expanded(
+                  child: Text(
+                myNombre,
+                style: MyTheme.base.textTheme.headline3,
+              )),
+              Hero(
+                tag: 'dni-$myDocumento',
+                child: CircleAvatar(
+                  maxRadius: 70,
+                  backgroundImage: AssetImage(myFoto),
+                ),
               ),
-            ),
-          )
-        ],
+            ],
+          ),
+        ),
+        Expanded(
+          child: ListView(
+            children: [
+              _RecuadroBlanco(
+                informacionData: myDocumento,
+              ),
+              _RecuadroBlanco(
+                informacionData: myFechaNacimiento,
+              ),
+              const _RecuadroBlanco(
+                informacionData: 'Datos de nacimiento',
+              ),
+              const _RecuadroBlanco(
+                informacionData: 'Tipo de sangre',
+              ),
+              const _RecuadroBlanco(
+                informacionData: 'Carne de vacunacion',
+              ),
+              const _RecuadroBlanco(
+                informacionData: 'Numero de cuenta',
+              ),
+            ],
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class _TrianguloHeader extends StatelessWidget {
+  const _TrianguloHeader({
+    Key? key,
+    required this.myColor,
+  }) : super(key: key);
+
+  final MaterialColor myColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: double.infinity,
+      width: double.infinity,
+      child: CustomPaint(
+        painter: _HeaderPainter(myColor),
       ),
+    );
+  }
+}
+
+class _FondoScreen extends StatelessWidget {
+  const _FondoScreen({
+    Key? key,
+    required this.myFondo,
+  }) : super(key: key);
+
+  final String myFondo;
+
+  @override
+  Widget build(BuildContext context) {
+    return Image(
+      image: AssetImage(myFondo),
+      fit: BoxFit.cover,
+      width: double.infinity,
+    );
+  }
+}
+
+class _RecuadroBlanco extends StatelessWidget {
+  const _RecuadroBlanco({
+    Key? key,
+    required this.informacionData,
+  }) : super(key: key);
+
+  final String informacionData;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(15),
+      margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+      child: Text(
+        informacionData,
+        textAlign: TextAlign.center,
+      ),
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(20)),
     );
   }
 }
