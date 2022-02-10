@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_familia/data/my_data.dart';
+import 'package:flutter_familia/models/models.dart';
 import 'package:flutter_familia/providers/providers.dart';
 import 'package:flutter_familia/theme/mytheme.dart';
 
@@ -22,6 +23,7 @@ class _DetalleMiembroScreenState extends State<DetalleMiembroScreen> {
     final drupalProvider = Provider.of<DrupalProvider>(context);
     myNid = drupalProvider.nid;
     myIndice = drupalProvider.indice;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: myData[myIndice]['color2'],
@@ -42,6 +44,9 @@ class _DetalleMiembroScreenState extends State<DetalleMiembroScreen> {
                 myDocumento: 'DNI: ' + drupalProvider.miembroCurrent.documento,
                 myFechaNacimiento:
                     'Fecha nacimiento: ${drupalProvider.miembroCurrent.fechaNacimiento}',
+                myArchivoDocumento:
+                    '${drupalProvider.miembroCurrent.archivoDocumento}',
+                myArchivoCovid: '${drupalProvider.miembroCurrent.archivoCovid}',
               );
             }
           }),
@@ -56,6 +61,8 @@ class _DetalleMiembro extends StatelessWidget {
   final String myNombre;
   final String myDocumento;
   final String myFechaNacimiento;
+  final String myArchivoDocumento;
+  final String myArchivoCovid;
 
   const _DetalleMiembro({
     Key? key,
@@ -65,6 +72,8 @@ class _DetalleMiembro extends StatelessWidget {
     required this.myNombre,
     required this.myDocumento,
     required this.myFechaNacimiento,
+    required this.myArchivoDocumento,
+    required this.myArchivoCovid,
   }) : super(key: key);
 
   @override
@@ -74,10 +83,13 @@ class _DetalleMiembro extends StatelessWidget {
         _FondoScreen(myFondo: myFondo),
         _TrianguloHeader(myColor: myColor),
         _Contenido(
-            myNombre: myNombre,
-            myDocumento: myDocumento,
-            myFoto: myFoto,
-            myFechaNacimiento: myFechaNacimiento),
+          myNombre: myNombre,
+          myDocumento: myDocumento,
+          myFoto: myFoto,
+          myFechaNacimiento: myFechaNacimiento,
+          myArchivoDocumento: myArchivoDocumento,
+          myArchivoCovid: myArchivoCovid,
+        ),
       ],
     );
   }
@@ -90,12 +102,16 @@ class _Contenido extends StatelessWidget {
     required this.myDocumento,
     required this.myFoto,
     required this.myFechaNacimiento,
+    required this.myArchivoDocumento,
+    required this.myArchivoCovid,
   }) : super(key: key);
 
   final String myNombre;
   final String myDocumento;
   final String myFoto;
   final String myFechaNacimiento;
+  final String myArchivoDocumento;
+  final String myArchivoCovid;
 
   @override
   Widget build(BuildContext context) {
@@ -123,8 +139,15 @@ class _Contenido extends StatelessWidget {
         Expanded(
           child: ListView(
             children: [
-              _RecuadroBlanco(
-                informacionData: myDocumento,
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, 'detalle_archivo',
+                      arguments: MiembroArchivoModels(
+                          myArchivoDocumento));
+                },
+                child: _RecuadroBlanco(
+                  informacionData: myDocumento,
+                ),
               ),
               _RecuadroBlanco(
                 informacionData: myFechaNacimiento,
@@ -135,8 +158,15 @@ class _Contenido extends StatelessWidget {
               const _RecuadroBlanco(
                 informacionData: 'Tipo de sangre',
               ),
-              const _RecuadroBlanco(
-                informacionData: 'Carne de vacunacion',
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, 'detalle_archivo',
+                      arguments: MiembroArchivoModels(
+                           myArchivoCovid));
+                },
+                child:const _RecuadroBlanco(
+                  informacionData: 'Carne de vacunacion',
+                ),
               ),
               const _RecuadroBlanco(
                 informacionData: 'Numero de cuenta',

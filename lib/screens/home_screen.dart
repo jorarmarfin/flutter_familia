@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
                       Provider.of<DrupalProvider>(context, listen: false);
                   drupalProvider.nid = int.parse(myData[index]['nid']);
                   drupalProvider.indice = index;
-                  Navigator.pushNamed(context, 'detalle_miembro');
+                  Navigator.pushNamed(context, 'detalle_miembro',);
                 },
               ),
             ],

@@ -6,7 +6,8 @@ class AppRoutes {
 
   static Map<String, Widget Function(BuildContext)> routes = {
     'home': (BuildContext context) => const HomeScreen(),
-    'detalle_miembro': (BuildContext context) => const DetalleMiembroScreen()
+    'detalle_miembro': (BuildContext context) => const DetalleMiembroScreen(),
+    'detalle_archivo': (BuildContext context) => const DetalleArchivoScreen()
   };
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     return MaterialPageRoute(
